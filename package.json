@@ -1,0 +1,11 @@
+{
+  "name": "Jax",
+  "version": "0.1.0",
+  "description": "Fully featured client side ajax library.",
+  "devDependecies": {},
+  "dependencies": {
+    "express": "^4.8.6",
+    "mocha": "^1.21.4",
+    "should": "^4.0.4"
+  }
+}
