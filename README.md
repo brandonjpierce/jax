@@ -31,3 +31,7 @@ Jax
     // do something
   });
 ```
+
+## Test
+
+Tests can be viewed from the /test directory.
