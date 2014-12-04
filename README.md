@@ -2,6 +2,8 @@
 
 Jax is a minimal fully featured client-side AJAX library with a expressive syntax inspired by the wonderful Superagent.
 
+[![Code Climate](https://codeclimate.com/github/brandonjpierce/jax/badges/gpa.svg)](https://codeclimate.com/github/brandonjpierce/jax)
+
 **Project is currently a work in progess**
 
 ## Available Methods
