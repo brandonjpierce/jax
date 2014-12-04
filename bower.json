@@ -1,0 +1,27 @@
+{
+  "name": "Jax",
+  "version": "0.1.0",
+  "homepage": "https://github.com/brandonjpierce/jax",
+  "authors": [
+    "Brandon Pierce <brandon@brandonjpierce.com>"
+  ],
+  "description": "Fully featured client side ajax library.",
+  "main": "./dist/jax.min.js",
+  "keywords": [
+    "ajax",
+    "http",
+    "request",
+    "get",
+    "post",
+    "put",
+    "delete"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
