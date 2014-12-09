@@ -6,12 +6,12 @@ describe('Object Instances', function() {
     assert.instanceOf(Jax.get('data.json'), Jax.Request);
   });
 
-  it('response instance of Jax.Response', function(done) {
+  it('response instance of Jax.Response', function(end) {
     Jax
-      .get('data.json')
-      .then(function(err, res) {
+      .get('/')
+      .done(function(err, res) {
         assert.instanceOf(res, Jax.Response);
-        done();
+        end();
       });
   });
 });
@@ -39,60 +39,77 @@ describe('Correct Responses', function() {
       'Hello, world.'
     ]);
 
-    server.respondWith('/404', [404, {}, ""]);
+    server.respondWith('/404', [404, {}, '']);
+    server.respondWith('/500', [
+      500,
+      {'Content-Type': 'application/json'},
+      '{"message": "There was an internal server error."}'
+    ]);
   });
 
   afterEach(function() {
     server.restore();
   });
 
-  it('Parse application/json', function(done) {
+  it('Parse application/json', function(end) {
     Jax
       .get('/json')
-      .then(function(err, res) {
+      .done(function(err, res) {
         var data = res.data;
 
         assert.isObject(data);
         assert.propertyVal(data, 'foo', 'bar');
 
-        done();
+        end();
       });
   });
 
-  it('Parse application/x-www-form-urlencoded', function(done) {
+  it('Parse application/x-www-form-urlencoded', function(end) {
     Jax
       .get('/form')
-      .then(function(err, res) {
+      .done(function(err, res) {
         var data = res.data;
 
         assert.isObject(data);
         assert.propertyVal(data, 'foo', 'bar');
 
-        done();
+        end();
       });
   });
 
-  it('Parse text/html', function(done) {
+  it('Parse text/html', function(end) {
     Jax
       .get('/text')
-      .then(function(err, res) {
+      .done(function(err, res) {
         var data = res.data;
 
         assert.isString(data);
         assert.strictEqual(data, 'Hello, world.');
 
-        done();
+        end();
       });
   });
 
-  it('Parse 404', function(done) {
+  it('Parse 404', function(end) {
     Jax
       .get('/404')
-      .then(function(err, res) {
+      .done(function(err, res) {
+        assert.isObject(res.error);
         assert.isNull(res.data);
         assert.strictEqual(res.status, 404);
 
-        done();
+        end();
+      });
+  });
+
+  it('Parse 500', function(end) {
+    Jax
+      .get('/500')
+      .done(function(err, res) {
+        assert.isObject(res.error);
+        assert.strictEqual(res.status, 500);
+
+        end();
       });
   });
 });
@@ -121,166 +138,154 @@ describe('Jax Request Object', function() {
   });
 
   describe('Setting headers | .header()', function() {
-    it('res.request.headers should be an object', function(done) {
+    it('res.request.headers should be an object', function(end) {
       Jax
         .get('/json')
         .header('foo', 'bar')
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.isObject(res.request.headers);
-          done();
+          end();
         });
     });
 
-    it('method should accept 2 params as strings', function(done) {
+    it('method should accept 2 params as strings', function(end) {
       Jax
         .get('/json')
         .header('foo', 'bar')
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.propertyVal(res.request.headers, 'foo', 'bar');
-          done();
+          end();
         });
     });
 
-    it('method should accept 1 param as object', function(done) {
+    it('method should accept 1 param as object', function(end) {
       Jax
         .get('/json')
         .header({
           foo: 'bar'
         })
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.propertyVal(res.request.headers, 'foo', 'bar');
-          done();
+          end();
         });
     });
   });
 
   describe('Sending payload data | .data()', function() {
-    it('res.request.requestData should be an object', function(done) {
+    it('res.request.requestData should be an object', function(end) {
       Jax
         .post('/json')
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.isObject(res.request.requestData);
-          done();
+          end();
         });
     });
 
-    it('method should accept 2 params as strings', function(done) {
+    it('method should accept 2 params as strings', function(end) {
       Jax
         .post('/json')
         .data('foo', 'bar')
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.propertyVal(res.request.requestData, 'foo', 'bar');
-          done();
+          end();
         });
     });
 
-    it('method should accept 1 param as object', function(done) {
+    it('method should accept 1 param as object', function(end) {
       Jax
         .post('/json')
         .data({
           foo: 'bar'
         })
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.propertyVal(res.request.requestData, 'foo', 'bar');
-          done();
+          end();
         });
     });
   });
 
   describe('Setting url queries | .query()', function() {
-    it('res.request.queries should be an array', function(done) {
+    it('res.request.queries should be an array', function(end) {
       Jax
         .get('/json')
         .query('foo=bar')
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.isArray(res.request.queries);
-          done();
+          end();
         });
     });
 
-    it('method should accept 1 param as string', function(done) {
+    it('method should accept 1 param as string', function(end) {
       Jax
         .get('/json')
         .query('foo=bar')
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.include(res.request.queries, 'foo=bar');
-          done();
+          end();
         });
     });
 
-    it('method should accept 1 param as object', function(done) {
+    it('method should accept 1 param as object', function(end) {
       Jax
         .get('/json')
         .query({
           foo: 'bar'
         })
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.include(res.request.queries, 'foo=bar');
-          done();
+          end();
         });
     });
   });
 
   describe('Setting content type header | .type()', function() {
-    it('Content-Type should be application/json', function(done) {
+    it('Content-Type should be application/json', function(end) {
       Jax
         .get('/json')
         .type('application/json')
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.equal(res.request.headers['Content-Type'], 'application/json');
-          done();
-        });
-    });
-  });
-
-  describe('Setting accept header | .accept()', function() {
-    it('Accept should be application/json', function(done) {
-      Jax
-        .get('/json')
-        .accept('application/json')
-        .then(function(err, res) {
-          assert.equal(res.request.headers['Accept'], 'application/json');
-          done();
+          end();
         });
     });
   });
 
   describe('Setting CORS on Request | .cors()', function() {
-    it('XHR should be set to handle CORS', function(done) {
+    it('XHR should be set to handle CORS', function(end) {
       Jax
         .get('/json')
         .cors()
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.equal(res.request.headers['X-CORS-Enabled'], true);
-          done();
+          end();
         });
     });
   });
 
   describe('Setting auth header | .auth()', function() {
-    it('Auth header should be set', function(done) {
+    it('Auth header should be set', function(end) {
       Jax
         .get('/json')
         .auth('john', 'doe')
-        .then(function(err, res) {
+        .done(function(err, res) {
           assert.isDefined(res.request.headers['Authorization']);
-          done();
+          end();
         });
     });
   });
 
   describe('Setting no cache headers | .nocache()', function() {
-    it('Appropriate headers sent so response is not cached', function(done) {
+    it('Appropriate headers sent so response is not cached', function(end) {
       Jax
         .get('/json')
         .nocache()
-        .then(function(err, res) {
+        .done(function(err, res) {
           var headers = res.request.headers;
 
           assert.equal(headers['Cache-Control'], 'no-cache');
           assert.equal(headers['Expires'], -1);
           assert.equal(headers['X-Requested-With'], 'XMLHttpRequest');
-          done();
+          end();
         });
     });
   });
