@@ -3,6 +3,19 @@
   "version": "0.1.0",
   "main": "./dist/jax.min.js",
   "description": "Fully featured client side ajax library.",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brandonjpierce/jax.git"
+  },
+  "author": "Brandon Pierce <brandon@brandonjpierce.com> (http://brandonjpierce.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brandonjpierce/jax/issues"
+  },
+  "homepage": "https://github.com/brandonjpierce/jax"
   "devDependencies": {
     "gulp": "^3.8.10",
     "gulp-rename": "^1.2.0",
