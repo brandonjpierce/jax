@@ -1,8 +1,37 @@
 #Jax
 
-Jax is a tiny fully featured client-side AJAX library with a expressive syntax inspired by the wonderful Superagent.
+Jax is a tiny (1.7kb gzipped) fully featured client-side AJAX library with a expressive syntax inspired by the wonderful Superagent.
 
 [![Code Climate](https://codeclimate.com/github/brandonjpierce/jax/badges/gpa.svg)](https://codeclimate.com/github/brandonjpierce/jax)
+
+## Getting Started
+
+#### Traditional
+```html
+<body>
+  <!-- html above -->
+  <script src="dist/jax.min.js"></script>
+  <script>
+    Jax
+      .get('/test')
+      .query('data_id=1')
+      .done(function(err, res) {
+        if (err || res.error) {
+          // handle error
+        }
+
+        // do something with response
+      });
+  </script>
+</body>
+```
+
+#### Bower
+```
+bower install jax
+```
+
+*Jax also has support for both AMD and CommonJS formats.*
 
 ## HTTP verb methods
 
@@ -168,6 +197,15 @@ Jax
   });
 ```
 
+## Contributing
+
+Try and respect the existing style as best as possible. Also please make sure to add unit tests for any new or changed functionality. Also lint your code using JSHint or similar.
+
 ## Tests
 
 Tests can be viewed by downloading source and viewing the `/test/index.html` file in your browser.
+
+## Release history
+
+- 1.0.0
+  - Initial release

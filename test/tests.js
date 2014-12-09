@@ -262,18 +262,6 @@ describe('Jax Request Object', function() {
     });
   });
 
-  describe('Setting auth header | .auth()', function() {
-    it('Auth header should be set', function(end) {
-      Jax
-        .get('/json')
-        .auth('john', 'doe')
-        .done(function(err, res) {
-          assert.isDefined(res.request.headers['Authorization']);
-          end();
-        });
-    });
-  });
-
   describe('Setting no cache headers | .nocache()', function() {
     it('Appropriate headers sent so response is not cached', function(end) {
       Jax
