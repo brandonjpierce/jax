@@ -1,5 +1,5 @@
 {
-  "name": "Jax",
+  "name": "jax",
   "version": "1.0.0",
   "main": "./dist/jax.min.js",
   "description": "Fully featured client side ajax library.",
@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/brandonjpierce/jax/issues"
   },
-  "homepage": "https://github.com/brandonjpierce/jax"
+  "homepage": "https://github.com/brandonjpierce/jax",
   "devDependencies": {
     "gulp": "^3.8.10",
     "gulp-rename": "^1.2.0",
