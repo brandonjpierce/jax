@@ -39,22 +39,34 @@ The HTTP verb methods will all return a new instance of a Jax's internal Request
 
 #### .get(url `String`)
 ```javascript
-Jax.get('/test').done();
+Jax.get('/test').done(callback);
+
+// or if you don't need any additional methods chained
+Jax.get('/test', callback);
 ```
 
 #### .post(url `String`)
 ```javascript
-Jax.post('/test').done();
+Jax.post('/test').done(callback);
+
+// or if you don't need any additional methods chained
+Jax.post('/test', callback);
 ```
 
 #### .put(url `String`)
 ```javascript
-Jax.put('/test').done();
+Jax.put('/test').done(callback);
+
+// or if you don't need any additional methods chained
+Jax.put('/test', callback);
 ```
 
 #### .del(url `String`)
 ```javascript
-Jax.del('/test').done();
+Jax.del('/test').done(callback);
+
+// or if you don't need any additional methods chained
+Jax.del('/test', callback);
 ```
 
 ## Request Methods
@@ -197,6 +209,19 @@ Jax
   });
 ```
 
+## Migrating from Superagent
+There is not a huge difference between Jax and Superagent besides size and method names but Jax has stripped away some of the what I think were unnecessary methods from Superagent such as auth() and accept(). The response object in Jax is also a little different in what properties are present.
+
+*Small rundown of differences in methods*
+- .send() is now .data()
+- .end() is now .done()
+- .auth() is removed
+- .accept() is removed
+
+Another small change is that an error object is always passed into your callback even if it is null. I use Node quite a lot and really like the error first style and wanted to do the same for Jax.
+
+The whole goal of Jax was to have the same expressive syntax and features that I have come to love about Superagent but in the tiniest file size possible.
+
 ## Contributing
 
 Try and respect the existing style as best as possible. Also please make sure to add unit tests for any new or changed functionality. Also lint your code using JSHint or similar.
@@ -207,5 +232,9 @@ Tests can be viewed by downloading source and viewing the `/test/index.html` fil
 
 ## Release history
 
+- 1.1.0
+  - Added sugar syntax to main HTTP verb methods e.g. you now can do `Jax.get(url, callback)` instead of `Jax.get(url).done(callback)`
+- 1.0.1
+  - package.json and bower.json version bump
 - 1.0.0
   - Initial release

@@ -1,6 +1,6 @@
 {
   "name": "jax",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "main": "./dist/jax.min.js",
   "description": "Fully featured client side ajax library.",
   "directories": {

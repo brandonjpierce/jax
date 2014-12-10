@@ -16,8 +16,77 @@ describe('Object Instances', function() {
   });
 });
 
+describe('Shorthand methods', function() {
+  before(function() {
+    server = sinon.fakeServer.create();
+    server.autoRespond = true;
+
+    server.respondWith('/test', [
+      200,
+      {'Content-Type': 'application/json'},
+      '{"foo":"bar"}'
+    ]);
+  });
+
+  after(function() {
+    server.restore();
+  });
+
+  it('Jax.get(url, callback)', function(end) {
+    Jax
+      .get('/test', function(err, res) {
+        var data = res.data;
+
+        assert.isObject(data);
+        assert.propertyVal(data, 'foo', 'bar');
+        assert.strictEqual(res.status, 200);
+
+        end();
+      });
+  });
+
+  it('Jax.post(url, callback)', function(end) {
+    Jax
+      .post('/test', function(err, res) {
+        var data = res.data;
+
+        assert.isObject(data);
+        assert.propertyVal(data, 'foo', 'bar');
+        assert.strictEqual(res.status, 200);
+
+        end();
+      });
+  });
+
+  it('Jax.put(url, callback)', function(end) {
+    Jax
+      .put('/test', function(err, res) {
+        var data = res.data;
+
+        assert.isObject(data);
+        assert.propertyVal(data, 'foo', 'bar');
+        assert.strictEqual(res.status, 200);
+
+        end();
+      });
+  });
+
+  it('Jax.del(url, callback)', function(end) {
+    Jax
+      .del('/test', function(err, res) {
+        var data = res.data;
+
+        assert.isObject(data);
+        assert.propertyVal(data, 'foo', 'bar');
+        assert.strictEqual(res.status, 200);
+
+        end();
+      });
+  });
+});
+
 describe('Correct Responses', function() {
-  beforeEach(function() {
+  before(function() {
     server = sinon.fakeServer.create();
     server.autoRespond = true;
 
@@ -47,7 +116,7 @@ describe('Correct Responses', function() {
     ]);
   });
 
-  afterEach(function() {
+  after(function() {
     server.restore();
   });
 
@@ -59,6 +128,7 @@ describe('Correct Responses', function() {
 
         assert.isObject(data);
         assert.propertyVal(data, 'foo', 'bar');
+        assert.strictEqual(res.status, 200);
 
         end();
       });
@@ -72,6 +142,7 @@ describe('Correct Responses', function() {
 
         assert.isObject(data);
         assert.propertyVal(data, 'foo', 'bar');
+        assert.strictEqual(res.status, 200);
 
         end();
       });
@@ -85,6 +156,7 @@ describe('Correct Responses', function() {
 
         assert.isString(data);
         assert.strictEqual(data, 'Hello, world.');
+        assert.strictEqual(res.status, 200);
 
         end();
       });
@@ -115,7 +187,7 @@ describe('Correct Responses', function() {
 });
 
 describe('Jax Request Object', function() {
-  beforeEach(function() {
+  before(function() {
     server = sinon.fakeServer.create();
     server.autoRespond = true;
 
@@ -133,7 +205,7 @@ describe('Jax Request Object', function() {
     ]);
   });
 
-  afterEach(function() {
+  after(function() {
     server.restore();
   });
 
