@@ -232,6 +232,8 @@ Tests can be viewed by downloading source and viewing the `/test/index.html` fil
 
 ## Release history
 
+- 1.1.1
+  - Reduced some code complexity in the .done() method by breaking up logic into smaller methods
 - 1.1.0
   - Added sugar syntax to main HTTP verb methods e.g. you now can do `Jax.get(url, callback)` instead of `Jax.get(url).done(callback)`
 - 1.0.1
